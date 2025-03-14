@@ -24,11 +24,11 @@ while ((jogadas < 9) && (fimJogo == false)) {
     lin = parseInt(prompt(`${jogador} em [linha]: `));
     col = parseInt(prompt(`${jogador} em [coluna]: `));
     // (c)
-    if(!(lin => 0 && lin < 3 && col >= 0 && col < 3)) {
-        console.log("Coordenada inválida!");
+    if(lin < 0 || lin > 2 || col < 0 || col > 2) {
+        console.log("Digite uma coordenada que seja válida!");
     } else {
         if(tab[lin][col] !== ' ') {
-            console.log("Coordenada já preenchida!");
+            console.log("Coordenada já preenchida! Digite outra coordenada.");
         } else {
             tab[lin][col] = jogador;
             jogadas++;
@@ -37,7 +37,7 @@ while ((jogadas < 9) && (fimJogo == false)) {
                 if (tab[i][0] !== ' ' && tab[i][0] === tab[i][1] && tab[i][1] === tab[i][2]) {
                     fimJogo = true;
                     vencedor = tab[i][0];
-                    return;
+                    break;
                 }
             }
 
@@ -45,26 +45,30 @@ while ((jogadas < 9) && (fimJogo == false)) {
                 if (tab[0][i] !== ' ' && tab[0][i] === tab[1][i] && tab[1][i] === tab[2][i]) {
                     fimJogo = true;
                     vencedor = tab[0][i];
-                    return;
+                    break;
                 }
             }
 
             if (tab[0][0] !== ' ' && tab[0][0] === tab[1][1] && tab[1][1] === tab[2][2]) {
                 fimJogo = true;
                 vencedor = tab[0][0];
-                return;
+                break;
             }
 
             if (tab[0][2] !== ' ' && tab[0][2] === tab[1][1] && tab[1][1] === tab[2][0]) {
                 fimJogo = true;
                 vencedor = tab[0][2];
-                return;
+                break;
             }
+            jogador = (jogador === 'o') ? 'x' : 'o';
         }
     }
-    jogador = (jogador === 'o') ? 'x' : 'o';
 }
 // (d)
+for (i = 0; i < 3; i++) {
+    console.log(`[${tab[i][j]}] [${tab[i][j+1]}] [${tab[i][j+2]}]`);
+}
+
 if(vencedor == ' ') {
     console.log("empate\n");
 } else {
